@@ -107,6 +107,24 @@ describe('plugin:leetcode', function() {
     });
   }); // #login
 
+  describe('#getContests', function() {
+    // TODO
+  }); // #getContests
+
+  describe('#getContestQuestions', function() {
+    it('should ok', function(done) {
+      nock('https://leetcode.com')
+        .get('/contest/api/info/weekly-contest-155')
+        .replyWithFile(200, './test/mock/weekly-contest-sample.20190926.json');
+
+      plugin.getContestQuestions('weekly-contest-155', function(e, questions) {
+        assert.equal(e, null);
+        assert.equal(questions.length, 4);
+        done();
+      });
+    });
+  });
+
   describe('#getProblems', function() {
     it('should ok', function(done) {
       nock('https://leetcode.com')
